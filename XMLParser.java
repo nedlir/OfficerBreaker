@@ -35,7 +35,11 @@ public class XMLParser {
         Element element = (Element) document.getElementsByTagName(TARGET_ELEMENT).item(0);
 
         // remove the node:
-        element.getParentNode().removeChild(element);
+        if (element != null) // if element == null it means there is no hashed pass
+        {
+            element.getParentNode().removeChild(element);
+        }
+
     }
 
     public void writeToXMLFile(String newFilePath) throws Exception {
