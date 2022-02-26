@@ -1,3 +1,4 @@
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -37,17 +38,17 @@ public class FileManipulator {
     }
 
     public void insertFile(String targetFile) throws Exception {
-      Path myFilePath = Paths.get(targetFile);
-  
-      Path zipFilePath = Paths.get(this.fileName);
-      try( FileSystem fs = FileSystems.newFileSystem(zipFilePath, null) ){
-          Path fileInsideZipPath = fs.getPath("/ppt/" + targetFile);
-          Files.delete(fileInsideZipPath);
-          Files.copy(myFilePath, fileInsideZipPath);
-          
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
+        Path myFilePath = Paths.get(targetFile);
+
+        Path zipFilePath = Paths.get(this.fileName);
+        try (FileSystem fs = FileSystems.newFileSystem(zipFilePath, null)) {
+            Path fileInsideZipPath = fs.getPath("/ppt/" + targetFile);
+            Files.delete(fileInsideZipPath);
+            Files.copy(myFilePath, fileInsideZipPath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
