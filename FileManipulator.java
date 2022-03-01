@@ -1,23 +1,18 @@
+package officerunlocker;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class FileManipulator {
 
     public final static String EXCEL_FILE = "xlsx";
     public final static String POWER_POINT_FILE = "pptx";
-    public final static String WORD_FILE = "pptx";
+    public final static String WORD_FILE = "docx";
 
     public final static String EXCEL_XML = "workbook.xml";
     public final static String POWER_POINT_XML = "presentation.xml";
@@ -103,6 +98,11 @@ public class FileManipulator {
         }
     }
 
+        public void removeXMLFile() throws Exception {
+        File file = new File(this.XMLTargetFile);
+        Files.deleteIfExists(file.toPath());
+    }
+        
     public String getXMLTargetFile() {
         return this.XMLTargetFile;
     }
