@@ -12,17 +12,20 @@ import org.w3c.dom.Element;
 
 public class XMLParser {
 
-    private final String TARGET_ELEMENT = "p:modifyVerifier"; // hashed password element
+    private FileManipulator manipulator;
     private String filePath;
+    private final String targetElement; // hashed password element
     private Element securityElement;
 
     private Document document;
 
-    public XMLParser(String filePath) throws Exception {
-        this.filePath = filePath;
+    public XMLParser(FileManipulator manipulator) throws Exception {
+        this.manipulator = manipulator;
+        this.filePath = manipulator.getXMLTargetFile();
+        this.targetElement = manipulator.getSecurityElement();
         this.document = XMLFileToDocument();
-        // get the element TARGET_ELEMENT (the hashed password element):
-        this.securityElement = (Element) document.getElementsByTagName(TARGET_ELEMENT).item(0);
+        // get the element targetElement (the hashed password element):
+        this.securityElement = (Element) document.getElementsByTagName(targetElement).item(0);
     }
 
     public Document XMLFileToDocument() throws Exception {
@@ -36,14 +39,18 @@ public class XMLParser {
         if (this.securityElement != null) { // if element == null it means there is no hashed pass
             this.securityElement.getParentNode().removeChild(this.securityElement);
         }
+
+        /*
+        if excel file, remove fileSharing and element of security from each sheet
+         */
     }
 
-    public void writeToXMLFile(String newFilePath) throws Exception {
+    public void writeToXMLFile() throws Exception {
         // create transformer from document to xml file:
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource dom = new DOMSource(this.document);
-        StreamResult streamResult = new StreamResult(new File(newFilePath));
+        StreamResult streamResult = new StreamResult(new File(this.filePath));
 
         // transform the XML source to file:
         transformer.transform(dom, streamResult);
