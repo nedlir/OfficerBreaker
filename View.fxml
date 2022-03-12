@@ -2,33 +2,43 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="officerunlocker.Controller">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="officerbreaker.Controller">
    <children>
-      <Button layoutX="90.0" layoutY="401.0" mnemonicParsing="false" onAction="#browsePressed" text="Browse" />
-      <Button layoutX="89.0" layoutY="445.0" mnemonicParsing="false" onAction="#removePasswordPressed" text="Remove Password" />
-      <Text fx:id="filePathText" layoutX="158.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="textTitle" fill="#000000bf" layoutX="164.0" layoutY="67.0" opacity="0.96" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="Officer Breaker" wrappingWidth="397.650390625">
+         <font>
+            <Font name="AR CENA" size="64.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="titleImageView" fitHeight="343.0" fitWidth="553.0" layoutX="81.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/title.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fileImageView" fitHeight="332.0" fitWidth="267.0" layoutX="395.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="fileText" fill="#000000bf" layoutX="81.0" layoutY="241.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="321.6494140625">
+         <font>
+            <Font name="Kristen ITC" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="99.0" layoutY="451.0" mnemonicParsing="false" onAction="#browsePressed" text="Browse" />
+      <Button layoutX="98.0" layoutY="494.0" mnemonicParsing="false" onAction="#removePasswordPressed" text="Remove Password" />
+      <Text fx:id="filePathText" layoutX="162.0" layoutY="468.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="505.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="260.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Art by " />
-      <Hyperlink layoutX="293.0" layoutY="477.0" onAction="#openCioccolatodorimaURL" text="Cioccolatodorima" />
-      <ImageView fx:id="image" fitHeight="335.0" fitWidth="267.0" layoutX="394.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="invalidFileText" fill="RED" layoutX="220.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File not supported. Please use &quot;.pptx&quot;, &quot;.docx&quot; or &quot;.xlsx&quot;">
+      <Text layoutX="280.0" layoutY="537.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Art by " />
+      <Hyperlink layoutX="312.0" layoutY="521.0" onAction="#openCioccolatodorimaURL" text="Cioccolatodorima" />
+      <Text fx:id="invalidFileText" fill="RED" layoutX="221.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File not supported. Please use &quot;.pptx&quot;, &quot;.docx&quot; or &quot;.xlsx&quot;">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="textTitle" fill="#000000bf" layoutX="77.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Office Breaker">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Text>
-      <Text fx:id="textInstructions" fill="#000000c0" layoutX="57.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="326.13671875" />
    </children>
 </AnchorPane>

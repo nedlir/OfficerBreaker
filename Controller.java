@@ -1,10 +1,8 @@
-package officerunlocker;
+package officerbreaker;
 
 import java.awt.Desktop;
 import java.io.File;
 import javafx.scene.image.Image;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,20 +34,16 @@ public class Controller {
     private String fileType;
 
     @FXML
-    private ImageView image;
-    private InputStream stream;
+    private ImageView titleImageView;
+
+    @FXML
+    private ImageView fileImageView;
     private Image wordImage;
     private Image excelImage;
     private Image powerpointImage;
-    private Image openingImage;
 
-    // opening screen instructions 
     @FXML
-    private Text textInstructions;
-
-    // opening screen title
-    @FXML
-    private Text textTitle;
+    private Text fileText;
 
     @FXML
     private Text invalidFileText;
@@ -57,22 +51,15 @@ public class Controller {
     @FXML
     public void initialize() {
         anchorPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        invalidFileText.setVisible(false);
 
-        textInstructions.setText(instructions());
+        invalidFileText.setVisible(false); // hides the invalid file text
 
         try {
-            openingImage = new Image(getClass().getResourceAsStream("img/opening.png"));
-
-
             wordImage = new Image(getClass().getResourceAsStream("img/word.png"));
 
             powerpointImage = new Image(getClass().getResourceAsStream("img/powerpoint.png"));
 
             excelImage = new Image(getClass().getResourceAsStream("img/excel.png"));
-
-            image.setImage(openingImage);
-            image.setVisible(true);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,22 +69,23 @@ public class Controller {
     @FXML
     void browsePressed(ActionEvent event) {
 
-        // remove text from screen
-        textTitle.setVisible(false);
-        textInstructions.setVisible(false);
         invalidFileText.setVisible(false);
 
-        fileChooser = new FileChooser();
-        fileChooser.setTitle("Please Select a File");
-        file = fileChooser.showOpenDialog(null);
-        filePath = file.toString();
-        fileName = file.getName();
-        filePathText.setText(filePath);
-        fileType = getFileType();
+        try {
+            fileChooser = new FileChooser();
+            fileChooser.setTitle("Please Select a File");
+            file = fileChooser.showOpenDialog(null);
+            filePath = file.toString();
+            fileName = file.getName();
+            filePathText.setText(filePath);
+            fileType = getFileType();
 
-        if (fileType != null) {
-            setImageByFileType();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        if (fileType != null && isFileSupported()) {
+            setScreenByFileType();
         }
     }
 
@@ -110,6 +98,7 @@ public class Controller {
             invalidFileText.setVisible(true);
             return;
         }
+        
         try {
             FileManipulator manipulator = new FileManipulator(filePath, "./"); // create new object to manipulate the file
 
@@ -125,9 +114,9 @@ public class Controller {
 
                 manipulator.insertFile(); // write back to file
 
-                manipulator.removeXMLFile();
+                manipulator.removeXMLFile(); // cleans the xml extracted from origin file
 
-                System.out.println("Finished");
+                fileText.setText(fileFinishedMessage());
             }
 
         } catch (Exception e) {
@@ -153,16 +142,21 @@ public class Controller {
         }
     }
 
-    private void setImageByFileType() {
+    private void setScreenByFileType() {
+        titleImageView.setVisible(false);
+        
         switch (fileType) {
             case EXCEL:
-                image.setImage(excelImage);
+                fileImageView.setImage(excelImage);
+                fileText.setText(fileRecognizedMessage("Excel"));
                 break;
             case WORD:
-                image.setImage(wordImage);
+                fileImageView.setImage(wordImage);
+                fileText.setText(fileRecognizedMessage("Word"));
                 break;
             case POWERPOINT:
-                image.setImage(powerpointImage);
+                fileImageView.setImage(powerpointImage);
+                fileText.setText(fileRecognizedMessage("PowerPoint"));
                 break;
             default:
                 break;
@@ -170,16 +164,24 @@ public class Controller {
     }
 
     private String getFileType() {
-        int indexOfLastDot = this.fileName.lastIndexOf(".");
+        int indexOfLastDot = fileName.lastIndexOf(".");
         if (indexOfLastDot == -1) // dot not found, invalid file
         {
             return null;
         }
-        return this.fileName.substring(indexOfLastDot + 1);
+        return fileName.substring(indexOfLastDot + 1);
     }
-
-    private String instructions() {
-        return "Welcome to Office Breaker!\n" + "This tool is deisgned to help remove read-only protection from .pptx, .xlsx. .docx filetypes.";
+    
+    // Messages on screen
+    private String fileRecognizedMessage(String fileType){
+        String messageOnScreen = "Officer Breaker recognized " + "\"" + fileName + "\"" +" as " + fileType + " file.\n\n";
+        messageOnScreen = messageOnScreen + "Press \"Remove Password\" to unprotect the file.";
+        return messageOnScreen;
     }
-
+    
+        private String fileFinishedMessage(){
+        String messageOnScreen = "Yay! Officer Breaker removed the protection from your file!";
+        return messageOnScreen;
+    }
+    
 }
