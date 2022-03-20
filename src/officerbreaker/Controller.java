@@ -98,7 +98,7 @@ public class Controller {
             invalidFileText.setVisible(true);
             return;
         }
-        
+
         try {
             FileManipulator manipulator = new FileManipulator(filePath, "./"); // create new object to manipulate the file
 
@@ -134,6 +134,15 @@ public class Controller {
         }
     }
 
+    @FXML
+    void openNedlirURL(ActionEvent event) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://github.com/nedlir").toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean isFileSupported() {
         if (fileType.equals(EXCEL) || fileType.equals(WORD) || fileType.equals(POWERPOINT)) {
             return true;
@@ -144,7 +153,7 @@ public class Controller {
 
     private void setScreenByFileType() {
         titleImageView.setVisible(false);
-        
+
         switch (fileType) {
             case EXCEL:
                 fileImageView.setImage(excelImage);
@@ -171,17 +180,17 @@ public class Controller {
         }
         return fileName.substring(indexOfLastDot + 1);
     }
-    
+
     // Messages on screen
-    private String fileRecognizedMessage(String fileType){
-        String messageOnScreen = "Officer Breaker recognized " + "\"" + fileName + "\"" +" as " + fileType + " file.\n\n";
+    private String fileRecognizedMessage(String fileType) {
+        String messageOnScreen = "Officer Breaker recognized " + "\"" + fileName + "\"" + " as " + fileType + " file.\n\n";
         messageOnScreen = messageOnScreen + "Press \"Remove Password\" to unprotect the file.";
         return messageOnScreen;
     }
-    
-        private String fileFinishedMessage(){
+
+    private String fileFinishedMessage() {
         String messageOnScreen = "Yay! Officer Breaker removed the protection from your file!";
         return messageOnScreen;
     }
-    
+
 }
