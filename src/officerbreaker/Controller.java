@@ -41,25 +41,39 @@ public class Controller {
     private Image wordImage;
     private Image excelImage;
     private Image powerpointImage;
-
+    private Image progressOnGoing;
+    private Image progressFinished;
+    
     @FXML
     private Text fileText;
 
     @FXML
     private Text invalidFileText;
+    
+    @FXML
+    private ImageView progressBarBrowse;
+
+    @FXML
+    private ImageView progressBarRemove;
 
     @FXML
     public void initialize() {
         anchorPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        invalidFileText.setVisible(false); // hides the invalid file text
-
+        invalidFileText.setVisible(false); 
+        progressBarBrowse.setVisible(false);
+        progressBarRemove.setVisible(false);
+        
         try {
             wordImage = new Image(getClass().getResourceAsStream("img/word.png"));
 
             powerpointImage = new Image(getClass().getResourceAsStream("img/powerpoint.png"));
 
             excelImage = new Image(getClass().getResourceAsStream("img/excel.png"));
+            
+            progressOnGoing = new Image(getClass().getResourceAsStream("img/prog-bar-ongoing.gif"));
+          
+            progressFinished = new Image(getClass().getResourceAsStream("img/prog-bar-complete.png"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +84,8 @@ public class Controller {
     void browsePressed(ActionEvent event) {
 
         invalidFileText.setVisible(false);
-
+        progressBarBrowse.setVisible(true);
+        progressBarBrowse.setImage(progressOnGoing);
         try {
             fileChooser = new FileChooser();
             fileChooser.setTitle("Please Select a File");
@@ -100,6 +115,9 @@ public class Controller {
         }
 
         try {
+            progressBarRemove.setVisible(true);
+            progressBarRemove.setImage(progressOnGoing);
+            
             FileManipulator manipulator = new FileManipulator(filePath, "./"); // create new object to manipulate the file
 
             manipulator.extractFile(); // extract XML from file
@@ -115,8 +133,10 @@ public class Controller {
                 manipulator.insertFile(); // write back to file
 
                 manipulator.removeXMLFile(); // cleans the xml extracted from origin file
-
+                
                 fileText.setText(fileFinishedMessage());
+                
+                progressBarRemove.setImage(progressFinished);
             }
 
         } catch (Exception e) {
@@ -153,6 +173,7 @@ public class Controller {
 
     private void setScreenByFileType() {
         titleImageView.setVisible(false);
+        progressBarBrowse.setVisible(false);
 
         switch (fileType) {
             case EXCEL:

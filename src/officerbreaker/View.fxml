@@ -35,12 +35,14 @@
       </Text>
       <Text layoutX="280.0" layoutY="537.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Art by " />
       <Hyperlink layoutX="312.0" layoutY="521.0" onAction="#openCioccolatodorimaURL" text="Cioccolatodorima" />
-      <Text fx:id="invalidFileText" fill="RED" layoutX="221.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File not supported. Please use &quot;.pptx&quot;, &quot;.docx&quot; or &quot;.xlsx&quot;">
+      <Text fx:id="invalidFileText" fill="RED" layoutX="234.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File not supported. Please use &quot;.pptx&quot;, &quot;.docx&quot; or &quot;.xlsx&quot;">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
       <Text layoutX="305.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code by " />
-      <Hyperlink layoutX="348.0" layoutY="538.0" onAction="#openNedlirURL" text="nedlir" />
+      <Hyperlink layoutX="351.0" layoutY="537.0" onAction="#openNedlirURL" text="nedlir" />
+      <ImageView fx:id="progressBarRemove" fitHeight="30.0" fitWidth="347.0" layoutX="230.0" layoutY="494.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="progressBarBrowse" fitHeight="30.0" fitWidth="398.0" layoutX="171.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
