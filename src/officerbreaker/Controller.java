@@ -115,6 +115,7 @@ public class Controller {
         }
 
         try {
+            // show progress
             progressBarRemove.setVisible(true);
             progressBarRemove.setImage(progressOnGoing);
             
@@ -137,6 +138,10 @@ public class Controller {
                 fileText.setText(fileFinishedMessage());
                 
                 progressBarRemove.setImage(progressFinished);
+            }
+            else // if there is no security element in the xml file, there is no read-only protection on it
+            {
+                manipulator.removeXMLFile(); // cleans the xml extracted from origin file
             }
 
         } catch (Exception e) {
