@@ -10,7 +10,7 @@ GUI artwork by [@Cioccolatodorima](https://twitter.com/cioccolato_kun).
 
 ## Requirements and Installation
 If you wish to build the project yourself you need:
-1. [JDK 8+](https://openjdk.org)
+1. [JDK 8](https://openjdk.org) or JDK 11+ with [JavaFX](https://openjfx.io)
 2. [Apache Ant ](https://ant.apache.org)
 3. Go to the main repository folder and run:
 ```bash
